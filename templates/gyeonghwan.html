@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <title>김경환 소개페이지</title>
+
+    <style>
+        .card1 {
+            max-width: 600px;
+            width: 95%;
+            margin: 20px auto 0px auto;
+            box-shadow: 0px 0px 4px 0px gray;
+            padding: 20px;
+        }
+
+        .form-floating {
+            margin: 10px;
+        }
+
+        .button > button {
+            margin-right: 10px;
+
+        }
+
+        .button {
+            display: flex;
+            flex-direction: row;
+            justify-content: right;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .card {
+            max-width: 500px;
+            width: 95%;
+            margin: 20px auto 0px auto;
+        }
+
+        .wrap > h1 {
+
+        }
+
+    </style>
+    <script>
+
+        $(document).ready(function () {
+            show_guestbook();
+        });
+
+        function show_guestbook() {
+            $('#comment-list').empty()
+
+            $.ajax({
+                type: "GET",
+                url: "/guestbooks",
+                data: {},
+                success: function (response) {
+                    load_host_guestbook(response)
+                }
+            });
+        }
+
+        function load_host_guestbook(response) {
+            let rows = response["guestbooks"]
+            for (let i = 0; rows.length; i++) {
+                if (rows[i]['host'] == 'GH') {
+                    let guest = rows[i]['guest']
+                    let guestbook = rows[i]['guestbook']
+
+                    let temp_html = `<div class="card">
+                                    <div class="card-body">
+                                      <blockquote class="blockquote mb-0">
+                                        <p>${guestbook}</p>
+                                        <footer class="blockquote-footer">${guest}</footer>
+                                      </blockquote>
+                                    </div>
+                                 </div>`
+                    $("#comment-list").append(temp_html)
+                }
+            }
+        }
+
+        function save_guestbook() {
+            let host = 'GH'
+            let guest = $('#name').val()
+            let guestBook = $('#comment').val()
+
+            $.ajax({
+                type: 'POST',
+                url: '/guestbooks',
+                data: {host_give: host, guest_give: guest, guestbook_give: guestBook},
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            })
+        }
+
+
+    </script>
+
+</head>
+<body>
+<div style="position: fixed; bottom: 50%; right: 5px">
+    <a href="#"><img src="../static/images/66.jpg" title="위로 가기"/></a>
+</div>
+<div style="position: fixed; bottom: 40%; right: 5px">
+    <a href="/home"><img src="../static/images/77.jpg" title="메인으로 가기"/></a>
+</div>
+<div class="wrap">
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="../static/images/MEMEME.jpg" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">진짜 초보의 팀프로젝트 살아남기 </h5>
+                    <p class="card-text"> e&I 팀의 김경환 입니다.</p>
+
+
+                    <h6> 하나부터 열까지 전부 알려주고 싶은 마음! but, 하나부터 둘까지 밖에 모르는 실력..</h6>
+                    <p class="card-text"><small class="text-muted">아직은 많이 부족하다.. </small></p>
+                    <a
+                            href="http://yismylfie.tistory.com/"
+                            style="text-decoration: none; color: black"
+                    >
+                        <div>블로그 링크</div>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="../static/images/isfp.jpg" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">질문지가 달라져도 </h5>
+                    <p class="card-text"> ISFP </p>
+
+                    <p class="card-text"><small class="text-muted"> #찐ISFP </small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="../static/images/water.jpg" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">성격은</h5>
+                    <p class="card-text">
+                        <p2> - 물이 흐르듯 유한 성격</p2>
+                    </p>
+                    <p2> - 비교적 순종적</p2>
+                    <p class="card-text"><small class="text-muted">.</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="../static/images/Tborn.jpg" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">내일이 세상의 끝이라면</h5>
+                    <p class="card-text">마지막 만찬은 </p>
+                    <p2> T본 스테이크</p2>
+                    <p class="card-text"><small class="text-muted">.</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card1">
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="name" placeholder="name@example.com">
+        <label>이름</label>
+    </div>
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="댓" id="comment"></textarea>
+        <label>댓글</label>
+    </div>
+    <div class="button">
+        <button onclick="save_guestbook()" type="button" class="btn btn-dark">방명록 작성</button>
+    </div>
+</div>
+<div class="card2" id="comment-list">
+</div>
+
+
+</body>
+</html>

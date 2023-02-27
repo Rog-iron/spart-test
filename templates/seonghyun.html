@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"
+            rel="stylesheet"
+    />
+    <title>당뚱's 소개페이지</title>
+
+    <style>
+        * {
+            font-family: "Noto Serif KR", serif;
+        }
+
+        .mypic {
+            width: 100%;
+            height: 300px;
+            background-image: linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.5),
+                    rgba(0, 0, 0, 0.5)
+            ),
+            url("../static/images/11.jpg");
+            background-position: center 50%;
+            background-size: cover;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .myLastFood {
+            width: 100%;
+            height: 300px;
+            background-image: linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.5),
+                    rgba(0, 0, 0, 0.5)
+            ),
+            url("../static/images/55.jpg");
+            background-position: center 30%;
+            background-size: cover;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card mb-3 {
+            width: 95%;
+            max-width: 500px;
+            margin: 20px auto 20px auto;
+            box-shadow: 0px 0px 3px 0px black;
+            padding: 20px;
+        }
+
+        .mypost {
+            width: 95%;
+            max-width: 500px;
+            margin: 20px auto 20px auto;
+            box-shadow: 0px 0px 3px 0px black;
+            padding: 20px;
+        }
+
+        .mypost > button {
+            margin-top: 15px;
+        }
+
+        .mycards {
+            width: 95%;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .mycards > .card {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .body {
+            margin: 20px auto 0px auto;
+            width: 70%;
+            max-width: 1200px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            show_guestbook();
+        });
+
+        function show_guestbook() {
+            $('#comment-list').empty()
+
+            $.ajax({
+                type: "GET",
+                url: "/guestbooks",
+                data: {},
+                success: function (response) {
+                    load_host_guestbook(response)
+                }
+            });
+        }
+
+        function load_host_guestbook(response) {
+            let rows = response["guestbooks"]
+            for (let i = 0; rows.length; i++) {
+                if (rows[i]['host'] == 'seonghyun') {
+                    let guest = rows[i]['guest']
+                    let guestbook = rows[i]['guestbook']
+
+                    let temp_html = `<div class="card">
+                                        <div class="card-body">
+                                          <blockquote class="blockquote mb-0">
+                                            <p>${guestbook}</p>
+                                            <footer class="blockquote-footer">${guest}</footer>
+                                          </blockquote>
+                                        </div>
+                                     </div>`
+                    $("#comment-list").append(temp_html)
+                }
+            }
+        }
+
+        function save_guestbook() {
+            let host = 'seonghyun'
+            let guest = $('#name').val()
+            let guestBook = $('#comment').val()
+
+            $.ajax({
+                type: 'POST',
+                url: '/guestbooks',
+                data: {host_give: host, guest_give: guest, guestbook_give: guestBook},
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            })
+        }
+
+
+    </script>
+
+</head>
+<body class="body">
+<div style="position: fixed; bottom: 50%; right: 5px">
+    <a href="#"><img src="../static/images/66.jpg" title="위로 가기"/></a>
+</div>
+<div style="position: fixed; bottom: 40%; right: 5px">
+    <a href="/home"><img src="../static/images/77.jpg" title="메인으로 가기"/></a>
+</div>
+<div class="mypic" style="margin-bottom: 20px">
+    <h1>조성현 소개페이지</h1>
+    <a
+            href="https://velog.io/@dangddoong"
+            style="text-decoration: none; color: white"
+    >
+        <div>당뚱의 벨로그 바로가기 링크</div>
+    </a
+    >
+</div>
+
+<div class="card-group">
+    <div class="card">
+        <img src="../static/images/22.jpg" class="card-img-top" alt="..."/>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text">
+                당뚱, 뚱뚱하면서 당당하기 쉽지 않은데 그걸 해낸다면서 대학친구가
+                지어준 별명입니다.<br/><br/>
+                저를 누군가에게 소개하기에 가장 좋은 단어라고 생각해서 개발
+                닉네임으로도 들고 왔습니다 ㅎㅎ<br/>
+            </p>
+            <p class="card-text">
+                <small class="text-muted"
+                >위 사진은 'Midjourney'라는 AI화가가 '당뚱'이라는 키워드를 가지고
+                    그려준 그림입니다.
+                </small>
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <img src="../static/images/33.jpg" class="card-img-top" alt="..."/>
+        <div class="card-body">
+            <h5 class="card-title">Estj</h5>
+            <p class="card-text">
+                지인들이 공통적으로 언급하는 저의 장점!<br/><br/>
+
+                1. 붙임성이 좋다. <br/>
+                2. 어디서나 당당하고 추진력이 좋다.<br/><br/>
+                역시 76% 파워 E 다운 장점들^^
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <img src="../static/images/44.jpg" class="card-img-top" alt="..."/>
+        <div class="card-body">
+            <h5 class="card-title">연쇄희생마</h5>
+            <p class="card-text">
+                <br/>저는 협업 과정에 있어서 양보와 희생을 많이 하는 스타일입니다.
+                <br/><br/>
+                그런데 코딩이라는 분야에서는 많이 갈려나가는 사람이 많은 것을 배우는
+                것 같다는 생각이 들어,<br/><br/>
+                최대한 팀원들에게도 좋은 경험을 제공하려 노력하고 있습니다.
+            </p>
+        </div>
+    </div>
+</div>
+<div class="mypost">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="name" placeholder="url"/>
+        <label for="floatingInput">이름</label>
+    </div>
+    <div class="form-floating">
+        <textarea
+                class="form-control"
+                placeholder="Leave a comment here"
+                id="comment"
+                style="height: 100px"
+        ></textarea>
+        <label for="floatingTextarea2">내용</label>
+    </div>
+    <button onclick="save_guestbook()" type="button" class="btn btn-dark">
+        방명록 남기기
+    </button>
+</div>
+<div class="mycards" id="comment-list">
+    <div class="card">
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p>새로운 앨범 너무 멋져요!</p>
+                <footer class="blockquote-footer">호빵맨</footer>
+            </blockquote>
+        </div>
+    </div>
+</div>
+<div class="myLastFood" style="margin-bottom: 20px">
+    <h1>최후의 만찬</h1>
+    <div>
+        죽기 전 딱 한가지 음식만 먹을 수 있다면... <br/>
+        뜨끈...한 샤브샤브를 먹고 싶습니다.
+    </div>
+</div>
+</body>
+</html>

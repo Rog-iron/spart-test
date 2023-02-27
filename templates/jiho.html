@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<link href="{{ url_for('static', filename='project.css') }}" rel="stylesheet">
+<script src="{{ url_for('static', filename='project1.js') }}" > </script>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+          crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>미니프로젝트 | Spring B반 10조 배지호</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Jua', sans-serif;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            show_guestbook();
+        });
+
+        function show_guestbook() {
+            $('#order-box').empty()
+
+            $.ajax({
+                type: "GET",
+                url: "/guestbooks",
+                data: {},
+                success: function (response) {
+                    load_host_guestbook(response)
+                }
+            });
+        }
+
+        function load_host_guestbook(response) {
+            let rows = response["guestbooks"]
+            for (let i = 0; rows.length; i++) {
+                if (rows[i]['host'] == ['jiho']) {
+                    let guest = rows[i]['guest']
+                    let guestbook = rows[i]['guestbook']
+                    let temp_html = `<div class="card">
+                              <div class="card-body">
+                                <blockquote class="blockquote mb-0">
+                                  <p style="color: #6A75CA">${guestbook}</p>
+                                  <footer class="blockquote-footer" style="color: #6A75CA">${guest}</footer>
+                                </blockquote>
+                              </div>
+                            </div>
+                            </div>`
+                    $("#order-box").append(temp_html)
+
+                }
+            }
+        }
+
+        function save_guestbook() {
+            let host = 'jiho'
+            let guest = $('#guest').val()
+            let guestbook = $('#guestbook').val()
+
+            $.ajax({
+                type: 'POST',
+                url: '/guestbooks',
+                data: {'host_give': host, 'guest_give': guest, 'guestbook_give': guestbook},
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            })
+        }
+
+    </script>
+</head>
+<body>
+<div style="position: fixed; bottom: 50%; right: 5px">
+    <a href="#"><img src="../static/images/66.jpg" title="위로 가기"/></a>
+</div>
+<div style="position: fixed; bottom: 40%; right: 5px">
+    <a href="/home"><img src="../static/images/77.jpg" title="메인으로 가기"/></a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+<div class="mytitle">
+    <h1>자기소개</h1>
+    <P>내일배움캠프 4기 B반 10조 배지호</P>
+</div>
+
+<!--다크모드/라이트모드 바꿔주는 버튼입니다.-->
+<button onclick="myFunction()" style="color: #6A75CA; display: block ;margin: 10px auto 10px auto;
+box-shadow: 0px 0px 4px 0px gray;" title="버튼을 누르면 다크모드/라이트모드로 전환됩니다.">다크모드 전환
+</button>
+
+<!--제 사진 및 자기소개를 적어 둔 박스-->
+<div class="card-mb-3" style="max-width: 1100px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="https://puu.sh/JqAjj/fe2ca77bf9.jpg" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title" style="text-align: center; color: #6A75CA">자기소개</h5>
+                <p class="card-text">
+                <li style="color: #6A75CA">안녕하세요! 내일배움캠프 spring 트랙 B반 10조에 팀원인 배지호입니다.</li>
+                <hr>
+                <li style="color: #6A75CA">저희 팀 이름은 e & I 이며, <br>&nbsp;&nbsp;&nbsp;&nbsp;팀 이름의 뜻은 저희 팀 5명 중 앞이 e인 사람이
+                    1명 I인 사람이 4명이라
+                    e & I로 지었습니다.
+                </li>
+                <hr>
+                <li style="color: #6A75CA">저는 24살이고, 서울에서 살고있습니다. 취미는 게임,운동,음악듣기 입니다!
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;MBTI는 ISFJ 입니다.
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;먼저 다가가는게 쉬운 성격은 아니지만 노력해서 다른 팀원분들한테 민폐끼치지 않게
+                    열심히 하겠습니다!
+                </li>
+                <hr>
+                <a href="https://ludaa.tistory.com/" target="_blank" title="티스토리 링크"><img
+                        src="https://play-lh.googleusercontent.com/HOwb9RHtv3AsCEyB-v1ni4z1TMgjqUJRP9FWFLNVsG-D8xoxxtfjGigzudTgSs0l8_g"
+                        style="max-width: 80px; display: block ;margin: 10px auto 10px auto ;"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--음식 사진이 나오는 박스입니다. (자동으로 움직일 수 있고 양 옆에 화살표 버튼을 누르면 수동으로 넘기기 가능)-->
+<hr>
+<h5 style="text-align: center; color: #6A75CA">나의 최후의 만찬들!</h5>
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="5000">
+            <img src="https://recipe1.ezmember.co.kr/cache/recipe/2019/01/31/e8cab950076b23a80f16dd7858dd514e1.jpg"
+                 class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 style="color: #6A75CA">제육볶음</h5>
+                <p style="color: #6A75CA">갓 만든 제육볶음과 갓 만든 밥의 조합은 진짜 침이 너무 고입니다..</p>
+            </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="5000">
+            <img src="http://www.bhc.co.kr//upload/bhc/menu//%EC%96%91%EB%85%90%EB%A7%B5%EC%86%8C%ED%82%B9%20%EC%88%9C%EC%82%B4%20%ED%83%91%20%EB%88%84%EB%81%BCsm.png"
+                 class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 style="color: #6A75CA">양념치킨(bhc)</h5>
+                <p style="color: #6A75CA">bhc 양념치킨이 닭도 크고 양념도 달달해서 정말 맛있습니다ㅠㅠ 금방 물리는게 아쉬운 치킨이에요</p>
+            </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="5000">
+            <img src="https://ssproxy.ucloudbiz.olleh.com/v1/AUTH_e59809eb-bdc9-44d7-9d8f-2e7f0e47ba91/uploads/ds_21393_1632447862Q8uZ5es.jpg"
+                 class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 style="color: #6A75CA">낙곱새</h5>
+                <p style="color: #6A75CA">낙지와 곱창, 새우 케미가 잘 어울리고 마지막에 밥까지 볶아먹으면 진짜 기분이 행복해집니다.</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<!--댓글 작성/ 댓글 조회가 가능합니다.-->
+<hr>
+<div class="card1">
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="guest" placeholder="name@example.com">
+        <label style="color: #6A75CA">이름을 적어주세요.</label>
+    </div>
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="댓글을 남겨주세요" id="guestbook"></textarea>
+        <label style="color: #6A75CA">방명록을 남겨주세요.</label>
+    </div>
+    <div class="button">
+        <button onclick="save_guestbook()" type="button" class="btn btn-dark" style="color: #6A75CA">방명록 남기기</button>
+    </div>
+</div>
+<div class="card2" id="order-box">
+</div>
+</body>
+</html>
+
+

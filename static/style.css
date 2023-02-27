@@ -1,0 +1,207 @@
+head,body {
+    overflow: auto;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+#section1 {
+    background-color: #eeeeee;
+    height: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#section2 {
+    background-color: #eeeeee;
+    height: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(#eeeeee, #eeeeee);
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    color:white;
+}
+
+.selector {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 140px;
+    height: 140px;
+    margin-top: -70px;
+    margin-left: -70px;
+    
+}
+
+.selector,
+.selector button {
+    font-family: 'Abril Fatface', cursive;
+    font-weight: 300;
+
+}
+
+.selector button {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    background: white;
+    border-radius: 50%;
+    border: 0;
+    color: black;
+    font-size: 50px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+    transition: all .1s;
+    
+}
+
+.selector button:hover {
+    background: gray;
+}
+
+.selector button:focus {
+    outline: none;
+}
+
+.selector ul {
+    position: absolute;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    top: -20px;
+    right: -20px;
+    bottom: -20px;
+    left: -20px;
+    
+}
+
+.selector li {
+    position: absolute;
+    width: 0;
+    height: 100%;
+    margin: 0 50%;
+    transition: all 0.8s ease-in-out;
+    font-family: 'Gowun Dodum', sans-serif;
+
+}
+
+.selector li input {
+    display: none;
+}
+
+.selector li input+label {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    width: 0;
+    height: 0;
+    line-height: 1px;
+    margin-left: 0;
+    background: #fff;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 1px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: none;
+    transition: all 0.8s ease-in-out, color 0.1s, background 0.1s;
+}
+
+.selector li input+label:hover {
+    background: #f0f0f0;
+}
+
+.selector li input:checked+label:hover {
+    background: #eeeeee;
+    color: black
+}
+
+.selector.open li input+label {
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    margin-left: -40px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+#minititle {
+
+    border: 1px solid black;
+
+    background-color: #eeeeee;
+    height: 90px;
+    width: 500px;
+
+    background-position: left;
+
+    color: black;
+
+    margin: 150px auto 30px 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Abril Fatface', cursive;
+}
+.opbutton{
+    font-family: 'Gowun Dodum', sans-serif;
+}
+
+.wrap {
+    height: 1200px;
+    margin: 40px 20px 0 20px;
+    font-family: 'Gowun Dodum', sans-serif;
+}
+
+.comments {
+    width: 100%;
+
+    margin: 40px auto 40px auto;
+
+    box-shadow: 0px 0px 3px 0px black;
+    padding: 20px;
+    font-family: 'Abril Fatface', cursive;
+
+    
+}
+
+.commup {
+    margin: 20px auto 20px auto;
+}
+.buttons {
+    margin: 20px auto 20px auto;
+    font-family: 'Gowun Dodum', sans-serif;
+
+}
+.comment-card {
+
+    width: 100%;
+
+    margin: auto;
+    font-family: 'Gowun Dodum', sans-serif;
+
+}
+
+.comment-card > .card {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
